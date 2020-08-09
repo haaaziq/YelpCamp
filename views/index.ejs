@@ -12,11 +12,12 @@
 <div class="container my-4">
     <div class="row">
         <% campgrounds.forEach(function(campground){ %>
-            <div class="col-sm-6 col-lg-4">
+            <div class="col-sm-6 col-lg-4 text-center">
                 <div class="card m-3 m-sm-1 m-md-2">
                     <img src="<%= campground.image %>" class="card-img-top" alt="campground-img">
                     <div class="card-body">
                     <h5 class="card-title text-center"><%= campground.name %></h5>
+                    <a href="/campgrounds/<%= campground._id %>" class="btn btn-info btn-sm">More Info.</a>
                     </div>
                 </div>
             </div>
