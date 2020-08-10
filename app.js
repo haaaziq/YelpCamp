@@ -1,9 +1,10 @@
-const express = require("express");
-const app = express();
-const bodyParser = require("body-parser");
-const mongoose = require("mongoose");
-const Campground = require("./models/campground");
-const seedDB = require("./seeds");
+const express       = require("express"),
+      app           = express(),
+      bodyParser    = require("body-parser"),
+      mongoose      = require("mongoose"),
+      Campground    = require("./models/campground"),
+      Comment       = require("./models/comment"),
+      seedDB        = require("./seeds");
 
 mongoose.connect("mongodb://localhost:27017/yelp_camp", {useNewUrlParser: true, useUnifiedTopology:true});
 
@@ -25,14 +26,14 @@ app.get("/campgrounds", function(req, res){
         if(err){
             console.log("Something went Wrong");
         } else{
-            res.render("index", {campgrounds: campgrounds});
+            res.render("campgrounds/index", {campgrounds: campgrounds});
         }
     });
 });
 
 //NEW --> Form to create new Campground
 app.get("/campgrounds/new", function(req, res){
-    res.render("new");
+    res.render("campgrounds/new");
 });
 
 
@@ -64,11 +65,46 @@ app.get("/campgrounds/:id", function(req, res){
         if(err){
             console.log("Error in finding by ID");
         } else{
-            res.render("show", {campground: foundCampground});
+            res.render("campgrounds/show", {campground: foundCampground});
         }
     });
 });
 
+//_________________________________________
+//____________COMMENTS ROUTES______________
+
+// NEW
+app.get("/campgrounds/:id/comments/new", function(req, res){
+    Campground.findById(req.params.id, function(err, foundCampground){
+        if(err){
+            console.log("ERROR in finding campground in comments NEW route");
+        }else {
+            res.render("comments/new", {campground: foundCampground});
+        }
+    });
+});
+
+// CREATE
+app.post("/campgrounds/:id/comments", function(req, res){
+    Campground.findById(req.params.id, function(err, foundCampground){
+        if(err){
+            console.log("ERROR in finding campground in comments CREATE route");
+        }else {
+            //If campground found then create comment and push it into founded campground comments array
+            Comment.create(req.body.comment, function(err, comment){
+                if(err){
+                    console.log("ERROR in creating comment");
+                } else{
+                    foundCampground.comments.push(comment);
+                    foundCampground.save();
+                    res.redirect("/campgrounds/" + foundCampground._id);
+                }
+            });
+        }
+    });
+});
+
+// Listening
 app.listen(80, function(){
     console.log("The YelpCamp SERVER has started!");
 });

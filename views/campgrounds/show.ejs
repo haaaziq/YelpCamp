@@ -1,4 +1,4 @@
-<%- include("partials/header") %>
+<%- include("../partials/header") %>
 
 <h1><%= campground.name %> </h1>
 
@@ -6,11 +6,12 @@
 
 <p> <%= campground.description %> </p>
 <br>
-<h3>Comments:</h3>
+<h3><i class="fas fa-comments"></i> Comments:</h3>
+<a href="/campgrounds/<%= campground._id %>/comments/new" class="btn btn-success"><i class="far fa-comment"></i> Add New</a>
 <p>
     <% campground.comments.forEach(function(comment){ %>
         <p><strong><%= comment.author %></strong> - <%= comment.text %></p>    
     <% }); %>
 </p>
 
-<%- include("partials/footer") %>
+<%- include("../partials/footer") %>
