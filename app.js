@@ -4,6 +4,9 @@ const express       = require("express"),
       mongoose      = require("mongoose"),
       Campground    = require("./models/campground"),
       Comment       = require("./models/comment"),
+      User          = require("./models/user"),
+      passport      = require("passport"),
+      localStrategy = require("passport-local"),
       seedDB        = require("./seeds");
 
 mongoose.connect("mongodb://localhost:27017/yelp_camp", {useNewUrlParser: true, useUnifiedTopology:true});
@@ -13,6 +16,26 @@ app.use(bodyParser.urlencoded({extended: true}));
 app.use(express.static(__dirname + "/public"));
 
 seedDB();
+
+// Passport Config
+app.use(require("express-session")({
+    secret: "Kaamehaamehaaa",
+    resave: false,
+    saveUninitialized: false
+}));
+app.use(passport.initialize());
+app.use(passport.session());
+
+// to use currentUser in ALL routes... using app.use (middleware)
+app.use(function(req, res, next){
+    // whatever we put in res.locals is available in all templates...here currentUser
+    res.locals.currentUser = req.user;
+    next(); //next, since it is a middleware
+});
+
+passport.use(new localStrategy(User.authenticate()));
+passport.serializeUser(User.serializeUser());
+passport.deserializeUser(User.deserializeUser());
 
 //_________________________________R O U T E S______________________________________
 
@@ -75,7 +98,7 @@ app.get("/campgrounds/:id", function(req, res){
 //____________COMMENTS ROUTES______________
 
 // NEW
-app.get("/campgrounds/:id/comments/new", function(req, res){
+app.get("/campgrounds/:id/comments/new", isSignedIn, function(req, res){
     Campground.findById(req.params.id, function(err, foundCampground){
         if(err){
             console.log("ERROR in finding campground in comments NEW route");
@@ -86,7 +109,7 @@ app.get("/campgrounds/:id/comments/new", function(req, res){
 });
 
 // CREATE
-app.post("/campgrounds/:id/comments", function(req, res){
+app.post("/campgrounds/:id/comments", isSignedIn, function(req, res){
     Campground.findById(req.params.id, function(err, foundCampground){
         if(err){
             console.log("ERROR in finding campground in comments CREATE route");
@@ -104,6 +127,54 @@ app.post("/campgrounds/:id/comments", function(req, res){
         }
     });
 });
+
+//_______________________________________________
+//____________A U T H . R O U T E S______________
+
+// show sign up form
+app.get("/register", function(req, res){
+    res.render("register");
+});
+
+// handling register logic
+app.post("/register", function(req, res){
+    var newUser = new User({username: req.body.username});
+    User.register(newUser, req.body.password, function(err, user){
+        if(err){
+            console.log(err);
+            return res.render("register");
+        }
+        passport.authenticate("local")(req, res, function(){
+            res.redirect("/campgrounds");
+        });
+    });
+});
+
+// show login form
+app.get("/login", function(req, res){
+    res.render("login");
+});
+
+// handling login logic
+app.post("/login", passport.authenticate("local", {
+    successRedirect: "/campgrounds",
+    failureRedirect: "/login"
+}) ,function(req, res){
+});
+
+// Logout route
+app.get("/logout", function(req, res){
+    req.logout();
+    res.redirect("/campgrounds");
+});
+
+// middleware function to check if signed in or not
+function isSignedIn(req, res, next){
+    if(req.isAuthenticated()){
+        return next();
+    }
+    res.redirect("/login");
+}
 
 // Listening
 app.listen(80, function(){

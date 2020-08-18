@@ -22,7 +22,7 @@ var data = [
 ];
 
 function seedDB(){
-    Campground.remove({}, function(err){
+    Campground.deleteMany({}, function(err){
         if(err){
             console.log("ERROR in removing all campgrounds");
         }
