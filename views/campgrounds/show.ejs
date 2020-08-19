@@ -28,7 +28,7 @@
                     <ul class="list-group list-group-flush">
                         <% campground.comments.forEach(function(comment){ %>
                             <li class="list-group-item comments">
-                                <strong><%= comment.author %></strong>
+                                <strong><%= comment.author.username %></strong>
                                 <span class="float-right">10 days ago</span>
                                 <br> <%= comment.text %>
                             </li>    
