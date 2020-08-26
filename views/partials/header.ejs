@@ -43,3 +43,16 @@
               </ul>
             </div>
         </nav>
+        <div class="container mt-2">
+          <!-- success.length > 0...since success is true even when it is empty -->
+          <% if(success && success.length > 0){ %>
+              <div class="alert alert-success" role="alert">
+                <%= success %>
+              </div>
+          <% } %>
+          <% if(error && error.length > 0){ %>
+              <div class="alert alert-danger" role="alert">
+                <%= error %>
+              </div>
+          <% } %>
+        </div>

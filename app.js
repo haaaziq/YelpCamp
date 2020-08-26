@@ -2,6 +2,7 @@ const express       = require("express"),
       app           = express(),
       bodyParser    = require("body-parser"),
       mongoose      = require("mongoose"),
+      flash         = require("connect-flash"),
       Campground    = require("./models/campground"),
       Comment       = require("./models/comment"),
       User          = require("./models/user"),
@@ -21,6 +22,7 @@ app.set("view engine", "ejs");
 app.use(bodyParser.urlencoded({extended: true}));
 app.use(express.static(__dirname + "/public"));
 app.use(methodOverride("_method"));
+app.use(flash());
 
 // seedDB(); //seed the database
 
@@ -37,6 +39,10 @@ app.use(passport.session());
 app.use(function(req, res, next){
     // whatever we put in res.locals is available in all templates...here currentUser
     res.locals.currentUser = req.user;
+    
+    // here error and success are keys that contain flash msg in its value
+    res.locals.error = req.flash("error");
+    res.locals.success = req.flash("success");
     next(); //next, since it is a middleware
 });
 

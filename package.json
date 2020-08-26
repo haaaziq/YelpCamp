@@ -1,7 +1,7 @@
 {
   "name": "yelpcamp",
   "version": "1.0.0",
-  "description": "YelpCamp v1",
+  "description": "Yelpcamp is a campground rating application, where users can create their own campgrounds, view and comment on others' campgrounds.",
   "main": "app.js",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1"
@@ -9,6 +9,7 @@
   "author": "haaaziq",
   "license": "ISC",
   "dependencies": {
+    "connect-flash": "^0.1.1",
     "ejs": "^3.1.3",
     "express": "^4.17.1",
     "express-session": "^1.17.1",
