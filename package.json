@@ -4,7 +4,8 @@
   "description": "Yelpcamp is a campground rating application, where users can create their own campgrounds, view and comment on others' campgrounds.",
   "main": "app.js",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "start": "node app.js"
   },
   "author": "haaaziq",
   "license": "ISC",
