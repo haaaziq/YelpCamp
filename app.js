@@ -58,6 +58,6 @@ passport.serializeUser(User.serializeUser());
 passport.deserializeUser(User.deserializeUser());
 
 // Listening
-app.listen(80, function(){
+app.listen(process.env.PORT || 80, function(){
     console.log("The YelpCamp SERVER has started!");
 });
