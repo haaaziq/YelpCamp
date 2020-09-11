@@ -27,6 +27,7 @@ router.get("/new", middleware.isSignedIn, function(req, res){
 router.post("/", middleware.isSignedIn, function(req, res){
     //name, img and desc from form
     var name = req.body.name;
+    var price = req.body.price;
     var image = req.body.image;
     var desc = req.body.description;
     var author = {
@@ -38,7 +39,8 @@ router.post("/", middleware.isSignedIn, function(req, res){
         name: name,
         image: image,
         description: desc,
-        author: author
+        author: author,
+        price: price
     };
     
     //Creating in DB

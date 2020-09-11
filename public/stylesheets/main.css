@@ -1,3 +1,22 @@
 .comments {
     background: #e9ecef;
 }
+
+.jumbotron h1 {
+    display: none;
+}
+
+.formWidth {
+    max-width: 450px;
+    width: 85%;
+}
+
+footer a.githubLink {
+    color: white;
+}
+
+.indexPage .card-img-top {
+    width: 100%;
+    height: 35vh;
+    object-fit: cover;
+}

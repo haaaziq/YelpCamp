@@ -1,11 +1,14 @@
 <%- include("partials/header") %>
 
-<h2>Login!</h2>
-
-<form action="/login" method="post">
-    <input type="text" name="username" placeholder="Username">
-    <input type="password" name="password" placeholder="Password">
-    <input type="submit" value="Login!">
-</form>
+<div class="container text-center formWidth">
+    <h2 class="mt-4">Login <i class="fas fa-user"></i></h2>
+    <div class="form-group my-3">
+        <form action="/login" method="post">
+            <input type="text" name="username" class="d-block w-80 form-control my-3" placeholder="Username">
+            <input type="password" name="password" placeholder="Password" class="d-block w-80 form-control my-3">
+            <input type="submit" value="Login!" class="btn btn-info btn-block">
+        </form>
+    </div>
+</div>
 
 <%- include("partials/footer") %>

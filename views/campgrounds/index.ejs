@@ -2,18 +2,18 @@
 
 <div class="container">
     <div class="jumbotron my-3">
-        <h1 class="display-4">This is Campgrounds Page</h1>
+        <h1 class="display-4 d-md-block">This is Campgrounds Page <i class="fas fa-mountain"></i></h1>
         <p class="lead">View our hand-picked campgroundsfrom all over the world</p>
         <hr class="my-4">
         <a class="btn btn-info btn-lg" href="/campgrounds/new">Add new Campground</a>
     </div>
 </div>
 
-<div class="container my-4">
+<div class="container mb-5">
     <div class="row">
         <% campgrounds.forEach(function(campground){ %>
             <div class="col-sm-6 col-lg-4 text-center">
-                <div class="card m-3 m-sm-1 m-md-2">
+                <div class="card m-3 m-sm-1 m-md-2 indexPage">
                     <img src="<%= campground.image %>" class="card-img-top" alt="campground-img">
                     <div class="card-body">
                     <h5 class="card-title text-center"><%= campground.name %></h5>
