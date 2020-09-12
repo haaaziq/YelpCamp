@@ -98,14 +98,14 @@ body {
 
     #landing-header h1 {
         font-weight: 500;
-        font-size: 6.5em;
+        font-size: 7.5em;
     }
 
     #landing-header a.btn-lg {
-        font-size: 2.8em;
+        font-size: 3.4em;
     }
 
     #landing-header a.btn-sm {
-        font-size: 1.8em;
+        font-size: 2.5em;
     }
 }
