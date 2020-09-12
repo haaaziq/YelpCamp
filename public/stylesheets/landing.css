@@ -14,6 +14,7 @@ body {
 }
 
 #landing-header h1 {
+    font-weight: 500;
     color: #fff;
     margin-bottom: 0.6em;
 }
@@ -84,4 +85,27 @@ body {
 /* Older browser support - .no-cssanimations class added by modernizr */
 .no-cssanimations .slideshow li {
 	opacity: 1;
+}
+
+@media(max-width:450px) {
+
+    #landing-header {
+        padding-top: 32vh;
+        text-shadow: 0 2px 3px rgba(0, 0, 0, 0.8),
+                     0 5px 9px rgba(0, 0, 0, 0.5),
+                     0 10px 15px rgba(0, 0, 0, 0.2);
+    }
+
+    #landing-header h1 {
+        font-weight: 500;
+        font-size: 3em;
+    }
+
+    #landing-header a.btn-lg {
+        font-size: 1.5em;
+    }
+
+    #landing-header a.btn-sm {
+        font-size: 0.8em;
+    }
 }
