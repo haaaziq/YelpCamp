@@ -16,9 +16,12 @@ const indexRoutes       = require("./routes/index"),
       commentRoutes     = require("./routes/comments"),
       campgroundRoutes  = require("./routes/campgrounds");
 
-// mongoose.connect("mongodb://localhost:27017/yelp_camp", {useNewUrlParser: true, useUnifiedTopology:true, useFindAndModify: false});
 
-mongoose.connect("mongodb+srv://Haziq:haziqkhan123@hzqcluster.swczi.mongodb.net/yelpcamp?retryWrites=true&w=majority", {useNewUrlParser: true, useUnifiedTopology:true, useCreateIndex: true, useFindAndModify: false});
+//creating env variable for DATABASE URL using cmd: export DATABASEURL=mongodb://localhost:27017/yelp_camp
+//url from environment variable + adding backup in case env. variable lost, 
+//env variable will be different for heroku(i.e. used to switch bwn different databases for development & production env)
+var url = process.env.DATABASEURL || "mongodb://localhost:27017/yelp_camp";
+mongoose.connect(url, {useNewUrlParser: true, useCreateIndex: true, useUnifiedTopology:true, useFindAndModify: false});
 
 app.set("view engine", "ejs");
 app.use(bodyParser.urlencoded({extended: true}));
